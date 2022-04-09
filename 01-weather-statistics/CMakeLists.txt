@@ -13,6 +13,6 @@ include(cmake/StaticAnalyzers.cmake)
 enable_cppcheck()
 enable_clang_tidy()
 
-add_executable(weather-statistics main.cpp)
+add_executable(weather-statistics main.cpp WeatherStatistics.cpp)
 target_compile_features(weather-statistics INTERFACE cxx_std_20)
 set_project_warnings(weather-statistics ON)
