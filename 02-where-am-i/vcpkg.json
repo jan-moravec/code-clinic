@@ -1,0 +1,9 @@
+{
+    "name": "where-am-i",
+    "version": "1.0",
+    "dependencies": [
+        "fmt",
+        "nlohmann-json",
+        "cpr"
+    ]
+}
