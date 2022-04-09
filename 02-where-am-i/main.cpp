@@ -30,7 +30,7 @@ int main()
         // Use nlohmann json library for simple JSON parsing
         // https://github.com/nlohmann/json
         nlohmann::json body = nlohmann::json::parse(response.text);
-        fmt::print("Request took {} seconds, raw response body: {}\n", response.elapsed, body.dump(4));
+        fmt::print("Request took {} seconds, raw response body:\n{}\n", response.elapsed, body.dump(4));
 
         double longitude = body["lon"];
         double latitude = body["lat"];
