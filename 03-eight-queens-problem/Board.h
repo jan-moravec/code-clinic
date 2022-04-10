@@ -9,15 +9,19 @@
 class Board
 {
 public:
-    struct Position
-    {
-        std::size_t x;
-        std::size_t y;
-    };
+    static constexpr int ROWS = 8;
+    static constexpr int COLUMNS = 8;
 
-    std::vector<std::pair<Queen, Position>> GetQueens() const;
-    void AddQueen(const Queen &queen, const Position &position);
+    std::vector<std::pair<Queen, std::pair<int, int>>> GetQueens() const;
+    void PlaceQueen(const Queen &queen, int row, int column);
+    Queen TakeQueen(int row, int column);
+    bool HasQueen(int row, int column) const;
+
+    bool IsSafe(int row, int column) const;
+    bool IsSafeRightSide(int row, int column) const;
 
 private:
-    std::array<std::array<std::optional<Queen>, 8>, 8> m_board;
+    const std::optional<Queen> &GetPosition(int row, int column) const;
+
+    std::array<std::array<std::optional<Queen>, COLUMNS>, ROWS> m_board;
 };
