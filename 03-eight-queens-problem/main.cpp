@@ -1,6 +1,9 @@
 #include "Board.h"
 #include <cassert>
 #include <fmt/format.h>
+#include <ftxui/dom/elements.hpp>
+#include <ftxui/dom/table.hpp>
+#include <ftxui/screen/screen.hpp>
 
 /*
 1) Start in the rightmost column
@@ -21,7 +24,7 @@
 */
 bool Solve(Board &board, int column)
 {
-    if (column == 0)
+    if (column < 0)
     {
         return true;
     }
@@ -46,28 +49,40 @@ bool Solve(Board &board, int column)
 
 void Print(const Board &board)
 {
+    std::vector<std::vector<std::string>> strings;
+
     for (int row = 0; row < board.ROWS; ++row)
     {
+        std::vector<std::string> rowStrings;
         for (int column = 0; column < board.COLUMNS; ++column)
         {
             if (board.HasQueen(row, column))
             {
-                fmt::print(" x ");
+                rowStrings.push_back(" O ");
             }
             else
             {
-                fmt::print("   ");
+                rowStrings.push_back("   ");
             }
         }
-        fmt::print("\n");
+        strings.push_back(rowStrings);
     }
+
+    using namespace ftxui;
+    auto table = Table(strings);
+
+    table.SelectAll().Border(DOUBLE);
+    table.SelectAll().Separator(LIGHT);
+    auto document = table.Render();
+    auto screen = Screen::Create(Dimension::Fit(document));
+    Render(screen, document);
+    screen.Print();
 }
 
 int main()
 {
     Board board;
     Solve(board, board.COLUMNS - 1);
-    Print(board);
 
     auto queens = board.GetQueens();
     for (const auto &[queen, position] : queens)
@@ -75,6 +90,8 @@ int main()
         fmt::print("Queen {} on possition [{}, {}]\n", queen.GetId(), position.first, position.second);
         assert(board.IsSafe(position.first, position.second));
     }
+
+    Print(board);
 
     return 0;
 }
