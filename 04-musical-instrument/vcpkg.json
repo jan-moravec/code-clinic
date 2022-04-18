@@ -1,0 +1,15 @@
+{
+    "name": "musical-instrument",
+    "version": "1.0",
+    "dependencies": [
+        "fmt",
+        {
+            "name": "imgui",
+            "features": [
+                "opengl3-binding",
+                "sdl2-binding"
+            ]
+        },
+        "sdl2"
+    ]
+}
