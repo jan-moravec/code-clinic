@@ -21,7 +21,7 @@ find_package(OpenGL REQUIRED)
 find_package(imgui CONFIG REQUIRED)
 
 # Executable
-add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+add_executable(${CMAKE_PROJECT_NAME} main.cpp window.cpp sound.cpp)
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE fmt::fmt SDL2::SDL2 SDL2::SDL2main ${OPENGL_LIBRARIES} imgui::imgui)
 target_compile_features(${CMAKE_PROJECT_NAME} INTERFACE cxx_std_20)
 
